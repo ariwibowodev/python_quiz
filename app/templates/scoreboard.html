@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block app_content %} 
+    <h2 class="mt-4">Papan Peringkat Kuis</h2>
+    
+    {% if top_scores %}
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Peringkat</th>
+                    <th>Nama Pengguna</th>
+                    <th>Skor Tertinggi</th>
+                    <th>Tanggal Terakhir (GMT+7)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for score, user in top_scores %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ score.high_score }}</td>
+                        <td>{{ score.local_last_quiz_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info">Belum ada yang mengerjakan kuis. Jadilah yang pertama!</div>
+    {% endif %}
+{% endblock app_content %}
